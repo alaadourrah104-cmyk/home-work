@@ -14,3 +14,4 @@ List<int> twoSum(List<int> nums, int target) {
   }
   return []; // علشان لو الشروط متحققتش يرجع ليست فاضيه
 }
+ 
