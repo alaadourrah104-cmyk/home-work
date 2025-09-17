@@ -6,7 +6,8 @@ void main() {
   print("enter number :");
   int num = int.parse(stdin.readLineSync()!);
   List<int> num1 = num;
+  int sum = 0;
   for (var item in num1) {
-    if ()
-  }
-}//???
+    sum = sum + item;
+  } //???
+}
