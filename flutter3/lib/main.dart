@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
+
+void main() {
+  runApp(const BMICalculator());
+}
+
+class BMICalculator extends StatelessWidget {
+  const BMICalculator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF0A0E21),
+        primaryColor: const Color(0xFF0A0E21),
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
