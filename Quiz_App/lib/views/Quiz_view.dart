@@ -1,8 +1,10 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter6/assets.dart';
-import 'package:flutter6/models/question_model.dart';
+import 'package:flutter6/models/quiz_manager.dart';
+import 'package:flutter6/theme/app_decoration.dart';
+import 'package:flutter6/widgets/custom_back_button.dart';
+import 'package:flutter6/widgets/custom_next_button.dart';
 
-import 'package:flutter6/theme/app_decorations.dart';
 import 'package:flutter6/widgets/question_item.dart';
 
 class QuizView extends StatefulWidget {
@@ -13,26 +15,67 @@ class QuizView extends StatefulWidget {
 }
 
 class _QuizViewState extends State<QuizView> {
+  QuizManager quizManager = QuizManager();
+  PageController pageController = PageController();
+  int pageIndex = 0;
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: AppDecorations.mainBackGroundDecoration,
+        decoration: AppDecoration.selectedAnswerBackgroundDecoration,
         child: SafeArea(
-          child: PageView(
+          child: Column(
             children: [
-               QuestionItem(
-             questionModel:    QuestionModel(
-                 title: "What is the capital of France",
-              questionNumber: "1",
-              options: ["Berlin", "Madrid", "Paris", "Rome"],
-              image: Assets.q1,
-    ),
-               ),
-            
-              // 
+              Expanded(
+                child: PageView.builder(
+                  onPageChanged: (index) {
+                    pageIndex = index;
+                    setState(() {});
+                  },
+                  controller: pageController,
+                  itemCount: quizManager.questions.length,
+
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+
+                      child: QuestionItem(
+                        questionModel: quizManager.questions[index],
+                        quizManager: quizManager,
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              //
+              SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Visibility(
+                      visible: pageIndex == 0 ? false : true,
+                      child: CustomBackButtom(pageController: pageController),
+                    ),
+                    Spacer(),
+                    CustomNextButton(
+                      pageController: pageController,
+                      pageCount: quizManager.questions.length,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 55),
             ],
           ),
         ),
@@ -40,6 +83,3 @@ class _QuizViewState extends State<QuizView> {
     );
   }
 }
-
-
-

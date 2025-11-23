@@ -1,4 +1,4 @@
-abstract class Assets {
+ abstract class Assets {
   // not to make object from him
   // Assets._(); = abstract // constructor private
   static const String q1 = "assets/images/q1.svg";

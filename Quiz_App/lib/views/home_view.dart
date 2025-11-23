@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter6/theme/app_decoration.dart';
 import 'package:flutter6/views/Quiz_view.dart';
 import 'package:flutter6/widgets/custom_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter6/assets.dart';
-import 'package:flutter6/theme/app_decorations.dart';
+
 import 'package:flutter6/theme/app_text_styles.dart';
 
 class HomeView extends StatelessWidget {
@@ -15,7 +16,7 @@ class HomeView extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: AppDecorations.mainBackGroundDecoration,
+        decoration: AppDecoration.selectedAnswerBackgroundDecoration,
         child: Stack(
           children: [
             Positioned.fill(child: Image.asset(Assets.gradinet,fit:BoxFit.fitHeight ,)),

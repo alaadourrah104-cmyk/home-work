@@ -1,28 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter6/models/question_model.dart';
+import 'package:flutter6/models/quiz_manager.dart';
+import 'package:flutter6/theme/app_text_styles.dart';
+import 'package:flutter6/widgets/options_list.dart';
 import 'package:flutter6/widgets/question_item_header.dart';
-import 'package:flutter6/widgets/selected_option_item.dart';
 
-class QuestionItem extends StatelessWidget {
-  const QuestionItem({super.key, required this.questionModel});
+class QuestionItem extends StatefulWidget {
+  const QuestionItem({
+    super.key,
+    required this.questionModel,
+    required this.quizManager,
+  });
   final QuestionModel questionModel;
+  final QuizManager quizManager;
+
+  @override
+  State<QuestionItem> createState() => _QuestionItemState();
+}
+
+class _QuestionItemState extends State<QuestionItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:CrossAxisAlignment.start ,
-      
-      children: [QuestionItemHeader(questionModel: questionModel),
-      SizedBox(height: 16),
-      Text("How  would you describe your level of satisfaction with the healthcare system?"
-      ,style: TextStyle(
-        color: Colors.white,
-        fontFamily: "Gilroy",
-        fontSize: 24,
-        fontWeight: FontWeight.w500,)
-      ),
-      SizedBox(height: 32),
+      crossAxisAlignment: CrossAxisAlignment.start,
 
-      SelectedOptionItem(),
-      ]);
+      children: [
+        QuestionItemHeader(questionModel: widget.questionModel),
+        SizedBox(height: 16),
+        Text(widget.questionModel.title, style: AppTextStyles.medium24()),
+        SizedBox(height: 32),
+
+        OptionsList(
+          questionModel: widget.questionModel,
+          quizManager: widget.quizManager,
+          onSelect: () {
+            setState(() {});
+          },
+        ),
+
+        widget.questionModel.isCorrectAnswer()
+            ? Text(
+                "Correct",
+                style: AppTextStyles.medium12(color: Colors.white),
+              )
+            : Text(
+                " Incorrect",
+                style: AppTextStyles.medium12(color: Colors.white),
+              ),
+      ],
+    );
   }
 }
